@@ -9,11 +9,6 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ProductResponse {
-    Long id;
+public class CategoryResponse {
     String name;
-    Double originalPrice;
-    String imgUrl;
-    Double rating;
-    DiscountResponse discount;
 }

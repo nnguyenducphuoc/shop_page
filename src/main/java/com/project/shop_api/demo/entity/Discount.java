@@ -17,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Table(name = "discounts")
 public class Discount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +28,6 @@ public class Discount {
     Date start_time;
     Date end_time;
     @OneToMany(mappedBy = "discount", cascade = CascadeType.ALL)
-    @JsonIgnore
     List<Product> products = new ArrayList<>();
 
 }
