@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "SELECT p FROM Product p " +
-            "JOIN Category c ON p.category.categoryId = c.categoryId " +
-            "JOIN Discount d ON p.discount.discountId = d.discountId " +
+            "JOIN p.category c " +
+            "LEFT JOIN p.discount d  " +
             "JOIN ProductDetail pd ON p.productId = pd.product.productId " +
             "JOIN ProductVariant pv ON pd.detailId = pv.productDetail.detailId " +
             "WHERE (:category IS NULL OR c.name LIKE %:category%) " +

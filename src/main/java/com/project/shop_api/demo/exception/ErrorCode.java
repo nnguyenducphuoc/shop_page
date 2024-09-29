@@ -14,6 +14,7 @@ public enum ErrorCode {
     CATEGORY_NOT_EXISTED(1006, "Category not existed", HttpStatus.NOT_FOUND),
     PRODUCT_NOT_EXISTED(1007, "Product not existed", HttpStatus.NOT_FOUND),
     INVALID_INFORMATION(1008, "Invalid Information", HttpStatus.BAD_REQUEST),
+    INVALID_REQUEST_PARAM(1008, "Invalid Information, at least 1 filter param", HttpStatus.BAD_REQUEST),
     ;
 
     int code;

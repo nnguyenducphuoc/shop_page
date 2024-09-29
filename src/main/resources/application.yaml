@@ -10,3 +10,10 @@ spring:
         hibernate:
             ddl-auto: update
         show-sql: true
+
+open:
+    api:
+        title: SHOP PAGE API DOCUMENT
+        version: v1.0.0
+        description: Some basic api for main and detail shop page
+        serverUrl: http://localhost:8081

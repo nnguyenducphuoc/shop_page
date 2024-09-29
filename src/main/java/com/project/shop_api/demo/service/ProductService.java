@@ -1,5 +1,7 @@
 package com.project.shop_api.demo.service;
 
+import com.project.shop_api.demo.dto.request.FilterRequest;
+import com.project.shop_api.demo.dto.request.PagingRequest;
 import com.project.shop_api.demo.dto.request.ProductCreateRequest;
 import com.project.shop_api.demo.dto.response.ProductDetailResponse;
 import com.project.shop_api.demo.dto.response.ProductResponse;
@@ -41,9 +43,21 @@ public class ProductService {
     ProductVariantMapper productVariantMapper;
     ImageMapper imageMapper;
 
-    public Page<ProductResponse> filterProducts(int page, int size, String sortBy, String order, String category, String color, String pvSize, String style, Double price) {
-        PageRequest pageRequest = this.createPageRequest(page, size, sortBy, order);
-        Page<Product> products = productRepository.filterProducts(category, color, pvSize, style, price, pageRequest);
+    public Page<ProductResponse> filterProducts(FilterRequest filterRequest) {
+        PagingRequest pagingRequest = PagingRequest.builder()
+                .page(filterRequest.getPage())
+                .size(filterRequest.getSize())
+                .sort(filterRequest.getSort())
+                .sortBy(filterRequest.getSortBy())
+                .build();
+        PageRequest pageRequest = this.createPageRequest(pagingRequest);
+        Page<Product> products = productRepository.filterProducts(
+                filterRequest.getCategory(),
+                filterRequest.getColor(),
+                filterRequest.getPvSize(),
+                filterRequest.getStyle(),
+                filterRequest.getPrice(),
+                pageRequest);
         return products.map(this::mapperToProductResponse);
     }
 
@@ -122,27 +136,26 @@ public class ProductService {
         return  productDetailResponse;
     }
 
-//    public List<ProductResponse> getAllProducts() {
-//        return productRepository.findAll().stream()
-//                .map(productMapper::productToProductResponse).toList();
-//    }
-
-    public Page<ProductResponse> findAllProducts(int page, int size, String sortBy, String order) {
-        PageRequest pageRequest = this.createPageRequest(page, size, sortBy, order);
+    public Page<ProductResponse> findAllProducts(PagingRequest pagingRequest) {
+        PageRequest pageRequest = this.createPageRequest(pagingRequest);
         Page<Product> products = productRepository.findAll(pageRequest);
         return products.map(this::mapperToProductResponse);
     }
 
-    private PageRequest createPageRequest(int page, int size, String sortBy, String order) {
-        Sort sort = order.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
-        return PageRequest.of(page, size, sort);
+    private PageRequest createPageRequest(PagingRequest pagingRequest) {
+        Sort sort = pagingRequest.getSort().equalsIgnoreCase("desc") ? Sort.by(pagingRequest.getSortBy()).descending() : Sort.by(pagingRequest.getSortBy()).ascending();
+        return PageRequest.of(pagingRequest.getPage(), pagingRequest.getSize(), sort);
     }
 
 
 
     private ProductResponse mapperToProductResponse(Product product) {
         ProductResponse productResponse = productMapper.productToProductResponse(product);
-        productResponse.setPrice(MyHelper.handlePrice(product.getOriginalPrice(), product.getDiscount().getValue()));
+        if (product.getDiscount() != null) {
+            productResponse.setPrice(MyHelper.handlePrice(product.getOriginalPrice(), product.getDiscount().getValue()));
+        } else {
+            productResponse.setPrice(MyHelper.handlePrice(product.getOriginalPrice(), 0.0));
+        }
         return productResponse;
     }
 }
