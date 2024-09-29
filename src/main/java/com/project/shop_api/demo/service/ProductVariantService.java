@@ -1,6 +1,5 @@
 package com.project.shop_api.demo.service;
 
-import com.project.shop_api.demo.dto.response.ProductVariantResponse;
 import com.project.shop_api.demo.entity.ProductVariant;
 import com.project.shop_api.demo.mapper.ProductVariantMapper;
 import com.project.shop_api.demo.repository.ProductVariantRepository;
@@ -16,7 +15,7 @@ public class ProductVariantService {
     ProductVariantMapper productVariantMapper;
     ProductVariantRepository productVariantRepository;
 
-    public ProductVariantResponse createProductVariant(ProductVariant productVariant) {
-        return productVariantMapper.productVariantToProductVariantResponse(productVariantRepository.save(productVariant));
+    public void createProductVariant(ProductVariant productVariant) {
+        productVariantMapper.productVariantToProductVariantResponse(productVariantRepository.save(productVariant));
     }
 }

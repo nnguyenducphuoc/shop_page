@@ -13,6 +13,7 @@ public enum ErrorCode {
     DISCOUNT_NOT_EXISTED(1005, "Discount not existed", HttpStatus.NOT_FOUND),
     CATEGORY_NOT_EXISTED(1006, "Category not existed", HttpStatus.NOT_FOUND),
     PRODUCT_NOT_EXISTED(1007, "Product not existed", HttpStatus.NOT_FOUND),
+    INVALID_INFORMATION(1008, "Invalid Information", HttpStatus.BAD_REQUEST),
     ;
 
     int code;

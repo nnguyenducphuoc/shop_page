@@ -23,11 +23,10 @@ public class Discount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "discount_id")
     @JsonIgnore
-    Long id;
+    Long discountId;
     Double value;
     Date start_time;
     Date end_time;
     @OneToMany(mappedBy = "discount", cascade = CascadeType.ALL)
     List<Product> products = new ArrayList<>();
-
 }

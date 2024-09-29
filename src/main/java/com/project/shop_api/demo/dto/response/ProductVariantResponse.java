@@ -13,4 +13,5 @@ public class ProductVariantResponse {
     String color;
     String size;
     String style;
+    int quantity;
 }

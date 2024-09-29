@@ -6,6 +6,7 @@ import com.project.shop_api.demo.dto.response.ProductResponse;
 import com.project.shop_api.demo.entity.*;
 import com.project.shop_api.demo.exception.AppException;
 import com.project.shop_api.demo.exception.ErrorCode;
+import com.project.shop_api.demo.helper.MyHelper;
 import com.project.shop_api.demo.mapper.*;
 import com.project.shop_api.demo.repository.CategoryRepository;
 import com.project.shop_api.demo.repository.DiscountRepository;
@@ -13,6 +14,9 @@ import com.project.shop_api.demo.repository.ProductRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -37,33 +41,39 @@ public class ProductService {
     ProductVariantMapper productVariantMapper;
     ImageMapper imageMapper;
 
+    public Page<ProductResponse> filterProducts(int page, int size, String sortBy, String order, String category, String color, String pvSize, String style, Double price) {
+        PageRequest pageRequest = this.createPageRequest(page, size, sortBy, order);
+        Page<Product> products = productRepository.filterProducts(category, color, pvSize, style, price, pageRequest);
+        return products.map(this::mapperToProductResponse);
+    }
+
     public ProductDetailResponse createProduct(ProductCreateRequest productCreateRequest) {
 
-        Discount discount = discountRepository.findById(productCreateRequest.getDiscount_id())
-                .orElseThrow( () -> new AppException(ErrorCode.DISCOUNT_NOT_EXISTED));
-        Category category = categoryRepository.findById(productCreateRequest.getCategory_id())
+        Category category = categoryRepository.findById(productCreateRequest.getCategoryId())
                 .orElseThrow( () -> new AppException(ErrorCode.CATEGORY_NOT_EXISTED));
-
-        double DEFAULT_RATING = 0.0;
+        Double DEFAULT_RATING = 0.0;
         Product product = Product.builder()
                 .name(productCreateRequest.getName())
                 .imgUrl(productCreateRequest.getImgUrl())
                 .originalPrice(productCreateRequest.getOriginalPrice())
-                .discount(discount)
                 .category(category)
                 .rating(DEFAULT_RATING)
                 .build();
 
-        int DEFAULT_QUANTITY = 0;
+        Discount discount = new Discount();
+        if (productCreateRequest.getDiscountId() != null) {
+            discount = discountRepository.findById(productCreateRequest.getDiscountId())
+                    .orElseThrow( () -> new AppException(ErrorCode.DISCOUNT_NOT_EXISTED));
+            product.setDiscount(discount);
+        }
+
         ProductDetail productDetail = ProductDetail.builder()
                 .product(product)
-                .reviewed(DEFAULT_QUANTITY)
                 .description(productCreateRequest.getDescription())
-                .lookedAt(DEFAULT_QUANTITY)
                 .build();
 
         List<Image> images = new ArrayList<>();
-        productCreateRequest.getImageRequests().forEach(imageRequest -> {
+        productCreateRequest.getImages().forEach(imageRequest -> {
             Image image = new Image();
             image.setUrl(imageRequest.getUrl());
             image.setProductDetail(productDetail);
@@ -71,12 +81,14 @@ public class ProductService {
         });
 
         List<ProductVariant> productVariants = new ArrayList<>();
-        productCreateRequest.getProductVariantRequests().forEach(productVariantRequest -> {
+        productCreateRequest.getVariants().forEach(productVariantRequest -> {
             ProductVariant productVariant = new ProductVariant();
             productVariant.setColor(productVariantRequest.getColor());
-            productVariant.setSize(productVariantRequest.getColor());
-            productVariant.setStyle(productVariantRequest.getColor());
+            productVariant.setSize(productVariantRequest.getSize());
+            productVariant.setStyle(productVariantRequest.getStyle());
+            productVariant.setQuantity(productVariantRequest.getQuantity());
             productVariant.setProductDetail(productDetail);
+
             productVariants.add(productVariant);
         });
 
@@ -85,29 +97,52 @@ public class ProductService {
         images.forEach(imageService::createImage);
         productVariants.forEach(productVariantService::createProductVariant);
 
+        Double price = MyHelper.handlePrice(product.getOriginalPrice(), discount.getValue());
+
+
 
         ProductDetailResponse productDetailResponse = ProductDetailResponse.builder()
-                .id(product.getId())
+                .productId(product.getProductId())
                 .category(categoryMapper.categoryToCategoryResponse(category))
                 .variants(productVariants.stream().map(productVariantMapper::productVariantToProductVariantResponse).toList())
                 .images(images.stream().map(imageMapper::imageToImageResponse).toList())
                 .description(productDetail.getDescription())
                 .lookedAt(productDetail.getLookedAt())
                 .reviewed(productDetail.getReviewed())
-                .discount(discountMapper.discountToDiscountResponse(discount))
                 .imgUrl(product.getImgUrl())
                 .name(product.getName())
+                .price(price)
                 .originalPrice(product.getOriginalPrice())
-                .rating(product.getRating())
+                .rating(productDetail.getProduct().getRating())
                 .build();
 
-        return productDetailResponse;
+        if (productCreateRequest.getDiscountId() != null) {
+            productDetailResponse.setDiscount(discountMapper.discountToDiscountResponse(discount));
+        }
+        return  productDetailResponse;
     }
 
-    public List<ProductResponse> getAllProducts() {
-        return productRepository.findAll().stream()
-                .map(productMapper::productToProductResponse).toList();
+//    public List<ProductResponse> getAllProducts() {
+//        return productRepository.findAll().stream()
+//                .map(productMapper::productToProductResponse).toList();
+//    }
+
+    public Page<ProductResponse> findAllProducts(int page, int size, String sortBy, String order) {
+        PageRequest pageRequest = this.createPageRequest(page, size, sortBy, order);
+        Page<Product> products = productRepository.findAll(pageRequest);
+        return products.map(this::mapperToProductResponse);
+    }
+
+    private PageRequest createPageRequest(int page, int size, String sortBy, String order) {
+        Sort sort = order.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        return PageRequest.of(page, size, sort);
     }
 
 
+
+    private ProductResponse mapperToProductResponse(Product product) {
+        ProductResponse productResponse = productMapper.productToProductResponse(product);
+        productResponse.setPrice(MyHelper.handlePrice(product.getOriginalPrice(), product.getDiscount().getValue()));
+        return productResponse;
+    }
 }

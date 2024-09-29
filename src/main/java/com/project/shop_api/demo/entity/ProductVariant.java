@@ -16,10 +16,11 @@ public class ProductVariant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "variant_id")
-    Long id;
+    Long variantId;
     String color;
     String size;
     String style;
+    int quantity;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "detail_id", referencedColumnName = "detail_id")
     ProductDetail productDetail;

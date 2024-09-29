@@ -16,7 +16,7 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "image_id")
-    Long id;
+    Long imageId;
     String url;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "detail_id", referencedColumnName = "detail_id")

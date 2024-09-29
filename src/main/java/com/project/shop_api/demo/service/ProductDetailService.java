@@ -1,9 +1,11 @@
 package com.project.shop_api.demo.service;
 
 import com.project.shop_api.demo.dto.response.ProductDetailResponse;
+import com.project.shop_api.demo.entity.Product;
 import com.project.shop_api.demo.entity.ProductDetail;
 import com.project.shop_api.demo.exception.AppException;
 import com.project.shop_api.demo.exception.ErrorCode;
+import com.project.shop_api.demo.helper.MyHelper;
 import com.project.shop_api.demo.mapper.CategoryMapper;
 import com.project.shop_api.demo.mapper.DiscountMapper;
 import com.project.shop_api.demo.mapper.ProductDetailMapper;
@@ -23,23 +25,24 @@ public class ProductDetailService {
     ProductDetailMapper productDetailMapper;
     DiscountMapper discountMapper;
 
-
-
-
-    public ProductDetailResponse createProductDetail(ProductDetail productDetail) {
-        return productDetailMapper.productDetailToProductDetailResponse(productDetailRepository.save(productDetail));
+    public void createProductDetail(ProductDetail productDetail) {
+        productDetailMapper.productDetailToProductDetailResponse(productDetailRepository.save(productDetail));
     }
 
-    public ProductDetailResponse findProductDetailById(Long id) {
-        ProductDetail productDetail = productDetailRepository.findByProductId(id).orElseThrow( () -> new AppException(ErrorCode.PRODUCT_NOT_EXISTED));
+    public ProductDetailResponse findProductDetailByProduct(Long id) {
+        Product productRequest = Product.builder().productId(id).build();
+        ProductDetail productDetail = productDetailRepository.findProductDetailByProduct(productRequest).orElseThrow( () -> new AppException(ErrorCode.PRODUCT_NOT_EXISTED));
+        Product product = productDetail.getProduct();
         ProductDetailResponse response = productDetailMapper.productDetailToProductDetailResponse(productDetail);
-        response.setCategory(categoryMapper.categoryToCategoryResponse(productDetail.getProduct().getCategory()));
-        response.setName(productDetail.getProduct().getName());
-        response.setImgUrl(productDetail.getProduct().getImgUrl());
-        response.setRating(productDetail.getProduct().getRating());
-        response.setOriginalPrice(productDetail.getProduct().getOriginalPrice());
-        response.setDiscount(discountMapper.discountToDiscountResponse(productDetail.getProduct().getDiscount()));
-
+        response.setPrice(MyHelper.handlePrice(product.getOriginalPrice(), product.getDiscount().getValue()));
+        response.setCategory(categoryMapper.categoryToCategoryResponse(product.getCategory()));
+        response.setName(product.getName());
+        response.setImgUrl(product.getImgUrl());
+        response.setRating(product.getRating());
+        response.setOriginalPrice(product.getOriginalPrice());
+        response.setDiscount(discountMapper.discountToDiscountResponse(product.getDiscount()));
+        response.setProductId(product.getProductId());
         return response;
     }
+
 }

@@ -19,7 +19,7 @@ public class ProductDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "detail_id")
-    Long id;
+    Long detailId;
     String description;
     int lookedAt;
     int reviewed;

@@ -1,6 +1,5 @@
 package com.project.shop_api.demo.service;
 
-import com.project.shop_api.demo.dto.response.ImageResponse;
 import com.project.shop_api.demo.entity.Image;
 import com.project.shop_api.demo.mapper.ImageMapper;
 import com.project.shop_api.demo.repository.ImageRepository;
@@ -16,7 +15,7 @@ public class ImageService {
     ImageRepository imageRepository;
     ImageMapper imageMapper;
 
-    public ImageResponse createImage(Image image) {
-        return imageMapper.imageToImageResponse(imageRepository.save(image));
+    public void createImage(Image image) {
+        imageMapper.imageToImageResponse(imageRepository.save(image));
     }
 }

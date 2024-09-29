@@ -3,6 +3,9 @@ package com.project.shop_api.demo.controller;
 import com.project.shop_api.demo.dto.response.ApiResponse;
 import com.project.shop_api.demo.dto.response.ProductDetailResponse;
 import com.project.shop_api.demo.service.ProductDetailService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -19,10 +22,15 @@ public class ProductDetailController {
     ProductDetailService productDetailService;
 
     @GetMapping("/{id}")
-    public ApiResponse<ProductDetailResponse> getProductDetail(@PathVariable Long id) {
+    public ApiResponse<ProductDetailResponse> getProductDetail(
+            @Valid
+            @PathVariable
+            @NotNull(message = "Product ID cannot be null")
+            @Positive(message = "Product ID must be greater than zero") Long id
+    ) {
         ApiResponse<ProductDetailResponse> apiResponse = new ApiResponse<>();
         apiResponse.setMessage("Get product detail successful");
-        apiResponse.setResult(productDetailService.findProductDetailById(id));
+        apiResponse.setResult(productDetailService.findProductDetailByProduct(id));
         return apiResponse;
     }
 }

@@ -4,7 +4,7 @@ import com.project.shop_api.demo.dto.response.DiscountResponse;
 import com.project.shop_api.demo.entity.Discount;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface DiscountMapper {
     DiscountResponse discountToDiscountResponse(Discount discount);
 }
