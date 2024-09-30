@@ -3,7 +3,7 @@ server:
 
 spring:
     datasource:
-        url: ${DBMS_CONNECTION:jdbc:mysql://mysql-api-shop-nguyenducphuoc0802-9822.j.aivencloud.com:3306/defaultdb}
+        url: ${DBMS_CONNECTION:jdbc:mysql://mysql-api-shop-nguyenducphuoc0802-9822.j.aivencloud.com:16606/defaultdb}
         username: ${DBMS_USERNAME:avnadmin}
         password: ${DBMS_PASSWORD:AVNS_8EKCuuG0vW_1w6uO_hM}
         driver-class-name: "com.mysql.cj.jdbc.Driver"
