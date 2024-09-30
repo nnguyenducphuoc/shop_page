@@ -1,0 +1,475 @@
+{
+	"info": {
+		"_postman_id": "43d58ffb-dae3-4d50-bee1-c17ffa9341c1",
+		"name": "SHOP PAGE API DOCUMENT SERVER",
+		"description": "Some basic api for main and detail shop page",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28547244"
+	},
+	"item": [
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "filter",
+					"item": [
+						{
+							"name": "filter Products",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/products/filter?category=Accessories&color=Black&pvSize=S&style=Bohemian&price=<double>&page=<integer>&size=<integer>&sortBy=name&sort=desc",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"products",
+										"filter"
+									],
+									"query": [
+										{
+											"key": "category",
+											"value": "Accessories",
+											"description": "(Required) "
+										},
+										{
+											"key": "color",
+											"value": "Black",
+											"description": "(Required) "
+										},
+										{
+											"key": "pvSize",
+											"value": "S",
+											"description": "(Required) "
+										},
+										{
+											"key": "style",
+											"value": "Bohemian",
+											"description": "(Required) "
+										},
+										{
+											"key": "price",
+											"value": "<double>",
+											"description": "(Required) "
+										},
+										{
+											"key": "page",
+											"value": "<integer>",
+											"description": "(Required) "
+										},
+										{
+											"key": "size",
+											"value": "<integer>",
+											"description": "(Required) "
+										},
+										{
+											"key": "sortBy",
+											"value": "name",
+											"description": "(Required) "
+										},
+										{
+											"key": "sort",
+											"value": "desc",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/products/filter?category=Accessories&color=Black&pvSize=S&style=Bohemian&price=<double>&page=<integer>&size=<integer>&sortBy=name&sort=desc",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"products",
+												"filter"
+											],
+											"query": [
+												{
+													"key": "category",
+													"value": "Accessories",
+													"description": "(Required) "
+												},
+												{
+													"key": "color",
+													"value": "Black",
+													"description": "(Required) "
+												},
+												{
+													"key": "pvSize",
+													"value": "S",
+													"description": "(Required) "
+												},
+												{
+													"key": "style",
+													"value": "Bohemian",
+													"description": "(Required) "
+												},
+												{
+													"key": "price",
+													"value": "<double>",
+													"description": "(Required) "
+												},
+												{
+													"key": "page",
+													"value": "<integer>",
+													"description": "(Required) "
+												},
+												{
+													"key": "size",
+													"value": "<integer>",
+													"description": "(Required) "
+												},
+												{
+													"key": "sortBy",
+													"value": "name",
+													"description": "(Required) "
+												},
+												{
+													"key": "sort",
+													"value": "desc",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"result\": {\n    \"totalPages\": \"<integer>\",\n    \"totalElements\": \"<long>\",\n    \"pageable\": {\n      \"paged\": \"<boolean>\",\n      \"pageNumber\": \"<integer>\",\n      \"pageSize\": \"<integer>\",\n      \"offset\": \"<long>\",\n      \"sort\": {\n        \"sorted\": \"<boolean>\",\n        \"empty\": \"<boolean>\",\n        \"unsorted\": \"<boolean>\"\n      },\n      \"unpaged\": \"<boolean>\"\n    },\n    \"size\": \"<integer>\",\n    \"content\": [\n      {\n        \"productId\": \"<long>\",\n        \"name\": \"<string>\",\n        \"originalPrice\": \"<double>\",\n        \"price\": \"<double>\",\n        \"imgUrl\": \"<string>\",\n        \"rating\": \"<double>\",\n        \"discount\": {\n          \"value\": \"<double>\",\n          \"start_time\": \"<dateTime>\",\n          \"end_time\": \"<dateTime>\"\n        },\n        \"category\": {\n          \"name\": \"<string>\"\n        }\n      },\n      {\n        \"productId\": \"<long>\",\n        \"name\": \"<string>\",\n        \"originalPrice\": \"<double>\",\n        \"price\": \"<double>\",\n        \"imgUrl\": \"<string>\",\n        \"rating\": \"<double>\",\n        \"discount\": {\n          \"value\": \"<double>\",\n          \"start_time\": \"<dateTime>\",\n          \"end_time\": \"<dateTime>\"\n        },\n        \"category\": {\n          \"name\": \"<string>\"\n        }\n      }\n    ],\n    \"number\": \"<integer>\",\n    \"sort\": {\n      \"sorted\": \"<boolean>\",\n      \"empty\": \"<boolean>\",\n      \"unsorted\": \"<boolean>\"\n    },\n    \"numberOfElements\": \"<integer>\",\n    \"first\": \"<boolean>\",\n    \"last\": \"<boolean>\",\n    \"empty\": \"<boolean>\"\n  }\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "detail",
+					"item": [
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "get Product Detail",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/products/detail/:id?id=<long>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"products",
+												"detail",
+												":id"
+											],
+											"query": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/products/detail/:id?id=<long>",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"products",
+														"detail",
+														":id"
+													],
+													"query": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"result\": {\n    \"productId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"lookedAt\": \"<integer>\",\n    \"reviewed\": \"<integer>\",\n    \"price\": \"<double>\",\n    \"originalPrice\": \"<double>\",\n    \"imgUrl\": \"<string>\",\n    \"rating\": \"<double>\",\n    \"category\": {\n      \"name\": \"<string>\"\n    },\n    \"discount\": {\n      \"value\": \"<double>\",\n      \"start_time\": \"<dateTime>\",\n      \"end_time\": \"<dateTime>\"\n    },\n    \"images\": [\n      {\n        \"url\": \"<string>\"\n      },\n      {\n        \"url\": \"<string>\"\n      }\n    ],\n    \"variants\": [\n      {\n        \"color\": \"<string>\",\n        \"size\": \"<string>\",\n        \"style\": \"<string>\",\n        \"quantity\": \"<integer>\"\n      },\n      {\n        \"color\": \"<string>\",\n        \"size\": \"<string>\",\n        \"style\": \"<string>\",\n        \"quantity\": \"<integer>\"\n      }\n    ]\n  }\n}"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "get All Product",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/products?page=<integer>&size=<integer>&sortBy=originalPrice&sort=desc",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "<integer>",
+									"description": "(Required) "
+								},
+								{
+									"key": "size",
+									"value": "<integer>",
+									"description": "(Required) "
+								},
+								{
+									"key": "sortBy",
+									"value": "originalPrice",
+									"description": "(Required) "
+								},
+								{
+									"key": "sort",
+									"value": "desc",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/products?page=<integer>&size=<integer>&sortBy=originalPrice&sort=desc",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"products"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "<integer>",
+											"description": "(Required) "
+										},
+										{
+											"key": "size",
+											"value": "<integer>",
+											"description": "(Required) "
+										},
+										{
+											"key": "sortBy",
+											"value": "originalPrice",
+											"description": "(Required) "
+										},
+										{
+											"key": "sort",
+											"value": "desc",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"result\": {\n    \"totalPages\": \"<integer>\",\n    \"totalElements\": \"<long>\",\n    \"pageable\": {\n      \"paged\": \"<boolean>\",\n      \"pageNumber\": \"<integer>\",\n      \"pageSize\": \"<integer>\",\n      \"offset\": \"<long>\",\n      \"sort\": {\n        \"sorted\": \"<boolean>\",\n        \"empty\": \"<boolean>\",\n        \"unsorted\": \"<boolean>\"\n      },\n      \"unpaged\": \"<boolean>\"\n    },\n    \"size\": \"<integer>\",\n    \"content\": [\n      {\n        \"productId\": \"<long>\",\n        \"name\": \"<string>\",\n        \"originalPrice\": \"<double>\",\n        \"price\": \"<double>\",\n        \"imgUrl\": \"<string>\",\n        \"rating\": \"<double>\",\n        \"discount\": {\n          \"value\": \"<double>\",\n          \"start_time\": \"<dateTime>\",\n          \"end_time\": \"<dateTime>\"\n        },\n        \"category\": {\n          \"name\": \"<string>\"\n        }\n      },\n      {\n        \"productId\": \"<long>\",\n        \"name\": \"<string>\",\n        \"originalPrice\": \"<double>\",\n        \"price\": \"<double>\",\n        \"imgUrl\": \"<string>\",\n        \"rating\": \"<double>\",\n        \"discount\": {\n          \"value\": \"<double>\",\n          \"start_time\": \"<dateTime>\",\n          \"end_time\": \"<dateTime>\"\n        },\n        \"category\": {\n          \"name\": \"<string>\"\n        }\n      }\n    ],\n    \"number\": \"<integer>\",\n    \"sort\": {\n      \"sorted\": \"<boolean>\",\n      \"empty\": \"<boolean>\",\n      \"unsorted\": \"<boolean>\"\n    },\n    \"numberOfElements\": \"<integer>\",\n    \"first\": \"<boolean>\",\n    \"last\": \"<boolean>\",\n    \"empty\": \"<boolean>\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "create Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"categoryId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"originalPrice\": \"<double>\",\n  \"description\": \"<string>\",\n  \"imgUrl\": \"https://AB\",\n  \"discountId\": \"<long>\",\n  \"images\": [\n    {\n      \"url\": \"<string>\"\n    },\n    {\n      \"url\": \"<string>\"\n    }\n  ],\n  \"variants\": [\n    {\n      \"color\": \"<string>\",\n      \"size\": \"<string>\",\n      \"style\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    },\n    {\n      \"color\": \"<string>\",\n      \"size\": \"<string>\",\n      \"style\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/products",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"categoryId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"originalPrice\": \"<double>\",\n  \"description\": \"<string>\",\n  \"imgUrl\": \"https://AB\",\n  \"discountId\": \"<long>\",\n  \"images\": [\n    {\n      \"url\": \"<string>\"\n    },\n    {\n      \"url\": \"<string>\"\n    }\n  ],\n  \"variants\": [\n    {\n      \"color\": \"<string>\",\n      \"size\": \"<string>\",\n      \"style\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    },\n    {\n      \"color\": \"<string>\",\n      \"size\": \"<string>\",\n      \"style\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/products",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"result\": {\n    \"productId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"lookedAt\": \"<integer>\",\n    \"reviewed\": \"<integer>\",\n    \"price\": \"<double>\",\n    \"originalPrice\": \"<double>\",\n    \"imgUrl\": \"<string>\",\n    \"rating\": \"<double>\",\n    \"category\": {\n      \"name\": \"<string>\"\n    },\n    \"discount\": {\n      \"value\": \"<double>\",\n      \"start_time\": \"<dateTime>\",\n      \"end_time\": \"<dateTime>\"\n    },\n    \"images\": [\n      {\n        \"url\": \"<string>\"\n      },\n      {\n        \"url\": \"<string>\"\n      }\n    ],\n    \"variants\": [\n      {\n        \"color\": \"<string>\",\n        \"size\": \"<string>\",\n        \"style\": \"<string>\",\n        \"quantity\": \"<integer>\"\n      },\n      {\n        \"color\": \"<string>\",\n        \"size\": \"<string>\",\n        \"style\": \"<string>\",\n        \"quantity\": \"<integer>\"\n      }\n    ]\n  }\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://shoppage-production.up.railway.app"
+		}
+	]
+}
