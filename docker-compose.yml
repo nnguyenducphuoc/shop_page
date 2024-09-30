@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+  api-shop:
+    container_name: api-container-2
+    image: api-shop-demo
+    ports:
+      - "8080:80"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge

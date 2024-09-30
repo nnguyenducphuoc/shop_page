@@ -1,5 +1,5 @@
 server:
-    port: 81
+    port: 80
 
 spring:
     datasource:
@@ -17,4 +17,4 @@ open:
         title: SHOP PAGE API DOCUMENT
         version: v1.0.0
         description: Some basic api for main and detail shop page
-        serverUrl: http://localhost:81
+        serverUrl: http://localhost:80

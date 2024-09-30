@@ -9,6 +9,6 @@ FROM amazoncorretto:17
 WORKDIR /app
 COPY --from=build /app/target/*jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
-EXPOSE 81
+EXPOSE 80
 
 
