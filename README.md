@@ -15,9 +15,9 @@
 ![Entity Relationship Diagram](/database.png)
 
 ## Api dành cho local
-[Json - Xuất từ postman collection for local](/SHOP PAGE API DOCUMENT.json)
+[Json - Xuất từ postman collection for local](/shop-page-api-collection.json)
 
 ## Database
 
 ## Api dành cho server
-[Json - Xuất từ postman collection for server](/SHOP PAGE API DOCUMENT SERVER.json)
+[Json - Xuất từ postman collection for server](/shop-page-api-collection-server.json)
