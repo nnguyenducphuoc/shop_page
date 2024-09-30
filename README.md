@@ -2,7 +2,7 @@
 
 ## Mô tả
 
-"Một vài api để thiết lập cho trang chủ và chi tiết sản phẩm gồm cả local và server."
+"Một vài api thiết lập cho trang chủ và chi tiết sản phẩm gồm local và server."
 
 ## Mục lục
 1. [Thiết kế database (ERD)](#Thiết-kế-database-(ERD))
