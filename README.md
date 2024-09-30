@@ -12,15 +12,12 @@
 
 
 ## Thiết kế database
-![Entity Relationship Diagram](https://drive.google.com/file/d/18YkGNdYi4roDYVj-1XxliIR9JFI3yARz/view)
+![Entity Relationship Diagram](/database.png)
 
-Ví dụ:
-```bash
-# Clone repository
-git clone https://github.com/your-username/your-project.git
+## Api dành cho local
+[Json - Xuất từ postman collection for local](đường-dẫn-tới-file)
 
-# Di chuyển vào thư mục dự án
-cd your-project
+## Database
 
-# Cài đặt các gói phụ thuộc
-npm install
+## Api dành cho server
+[Json - Xuất từ postman collection for server](đường-dẫn-tới-file)
