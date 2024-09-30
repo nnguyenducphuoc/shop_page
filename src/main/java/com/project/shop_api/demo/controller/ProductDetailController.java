@@ -1,5 +1,6 @@
 package com.project.shop_api.demo.controller;
 
+import com.project.shop_api.demo.dto.request.ProductIdObjectRequest;
 import com.project.shop_api.demo.dto.response.ApiResponse;
 import com.project.shop_api.demo.dto.response.ProductDetailResponse;
 import com.project.shop_api.demo.service.ProductDetailService;
@@ -9,6 +10,7 @@ import jakarta.validation.constraints.Positive;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,19 +20,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RestController
+@Validated
 public class ProductDetailController {
     ProductDetailService productDetailService;
 
     @GetMapping("/{id}")
     public ApiResponse<ProductDetailResponse> getProductDetail(
-            @Valid
-            @PathVariable
-            @NotNull(message = "Product ID cannot be null")
-            @Positive(message = "Product ID must be greater than zero") Long id
+            @Valid ProductIdObjectRequest request
     ) {
         ApiResponse<ProductDetailResponse> apiResponse = new ApiResponse<>();
         apiResponse.setMessage("Get product detail successful");
-        apiResponse.setResult(productDetailService.findProductDetailByProduct(id));
+        apiResponse.setResult(productDetailService.findProductDetailByProduct(request.getId()));
         return apiResponse;
     }
 }
